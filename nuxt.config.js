@@ -1,7 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'universal',
   /*
   ** Headers of the page
   */
@@ -25,6 +24,7 @@ export default {
   ** Global CSS
   */
   css: [
+    'leaflet/dist/leaflet.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -36,6 +36,7 @@ export default {
   */
   buildModules: [
     '@nuxtjs/vuetify',
+    '@nuxtjs/style-resources',
   ],
   /*
   ** Nuxt.js modules
@@ -46,6 +47,7 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
+    'nuxt-leaflet',
   ],
   /*
   ** Axios module configuration
@@ -59,8 +61,9 @@ export default {
   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -83,5 +86,13 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  styleResources: {
+        scss: [
+            '~/assets/*.scss'
+        ]
+    },
+    env: {
+        
+    }
 }
