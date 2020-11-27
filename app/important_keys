@@ -1,2 +1,4 @@
 0e2b346442f01f600b7a4bfe8bbbfeee - ipstack API
 GZiAVJKnwv1sRwkrbXrKvKZwi3xMEs32 - MapQuest API
+
+https://www.mapquestapi.com/geocoding/v1/address?key=GZiAVJKnwv1sRwkrbXrKvKZwi3xMEs32&inFormat=kvp&outFormat=json&location=Quezon+City%2C+Philippines&thumbMaps=false

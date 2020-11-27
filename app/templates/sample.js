@@ -11,4 +11,6 @@ var map = new ol.Map({
     })
   });
 
+  https://www.mapquestapi.com/geocoding/v1/reverse?key=GZiAVJKnwv1sRwkrbXrKvKZwi3xMEs32&location=14.65859%2C121.04962&outFormat=json&thumbMaps=false
+
 
