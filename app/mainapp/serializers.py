@@ -4,8 +4,8 @@ from .functions import *
 from .models import *
 
 
-class LocationSerializer( serializers.ModelSerializer ):
+class BusinessSerializer( serializers.ModelSerializer ):
 
     class Meta:
-        model = Location
+        model = Business
         fields = '__all__'

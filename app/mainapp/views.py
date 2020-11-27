@@ -8,6 +8,6 @@ from rest_framework import viewsets
 
 # Create your views here.
 
-class LocationViewSet( viewsets.ModelViewSet ):
-    queryset = Location.objects.all()
-    serializer_class = LocationSerializer
+class BusinessViewSet( viewsets.ModelViewSet ):
+    queryset = Business.objects.all()
+    serializer_class = BusinessSerializer
