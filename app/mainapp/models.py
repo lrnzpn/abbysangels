@@ -42,8 +42,8 @@ class Business( models.Model ):
     mobile_number = models.CharField( max_length=11, null=True, blank=True )
     telephone_number = models.CharField( max_length=10, null=True, blank=True )
     facebook_link = models.CharField( max_length=127, null=True, blank=True )
-    email = models.EmailField( max_length=254 )
-    password = models.CharField( max_length=20 )
+    email = models.EmailField( max_length=254, null=True )
+    password = models.CharField( max_length=20, null=True )
 
     services = models.ForeignKey( Service, related_name='business', on_delete=models.SET_NULL, null=True )
 

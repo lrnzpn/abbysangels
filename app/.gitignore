@@ -2,4 +2,4 @@
 *.pyc
 
 # Migrations folder
-migrations/*
+migrations/
