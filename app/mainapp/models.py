@@ -41,11 +41,12 @@ class Business( models.Model ):
     representative_name = models.CharField( max_length=255, null=True, blank=True )
     mobile_number = models.CharField( max_length=11, null=True, blank=True )
     telephone_number = models.CharField( max_length=10, null=True, blank=True )
-    facebook_link = models.CharField( max_length=127, null=True, blank=True )
+    website_link = models.CharField( max_length=127, null=True, blank=True )
     email = models.EmailField( max_length=254, null=True )
     password = models.CharField( max_length=20, null=True )
 
     services = models.ForeignKey( Service, related_name='business', on_delete=models.SET_NULL, null=True )
+    description = models.TextField( max_length=160, null=True, blank=True )
 
     office_hours_start = models.TimeField( null=True, blank=True )
     office_hours_end = models.TimeField( null=True, blank=True)

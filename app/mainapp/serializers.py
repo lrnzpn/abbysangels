@@ -12,7 +12,7 @@ class ServiceSerializer( serializers.ModelSerializer ):
 
 class BusinessSerializer( serializers.ModelSerializer ):
     
-    services = ServiceSerializer( many=True )
+    services = ServiceSerializer()
 
     class Meta:
         model = Business
