@@ -1,5 +1,5 @@
 <template>
-  <div class="py-5 px-5">
+    <div class="py-5 px-5">
       <div>
             <div class="picture-bg static"></div>
             <h3 class="register-header">Place your business on our map!</h3>
@@ -13,14 +13,13 @@
           <!-- page 1 -->
         <div class="page--1" v-if="progress === 1">
             <v-row>
-                <v-col>
+                <v-col cols="12" md="6">
                     <span class="register-label">Address</span>
                     <v-text-field outlined v-model="address" :rules='rules.textRules' required></v-text-field>
                 </v-col>
-                <v-col></v-col>
             </v-row>
             <v-row>
-                <v-col>
+                <v-col cols="12" md="6">
                     <div>
                         <span class="register-label">Business Name</span>
                         <v-text-field outlined v-model="business" :rules='rules.textRules' required></v-text-field>
@@ -94,13 +93,12 @@
                         </div>
                     </div>
                 </v-col>
-                <v-col>
+                <v-col cols="12" md="6">
                     <span class="register-label">Description</span>
                     <v-textarea 
                     outlined 
                     v-model="description" 
                     :counter="160"
-                    required
                     >
                     </v-textarea>
                 </v-col>
@@ -114,31 +112,34 @@
                 <!-- page 2 -->
             <div class="page--2" v-else-if="progress === 2">
                 <v-row>
-                    <v-col>
-                        <div v-if="!image" class="image-upload-wrap">
-                            <input type="file" @change="onFileChange" accept="image/*" class="file-upload-input">
-                            <div class="d-flex justify-center align-center flex-column upload">
-                                <v-icon style="font-size: 5em" color="#fefdff">mdi-plus-circle-outline</v-icon>
-                                <span>Add store logo</span>
+                    <v-col cols="12" md="6">
+                        <span class="register-label">Company Logo</span>
+                        <div class="d-flex justify-center align-center d-md-block">
+                            <div v-if="!image" class="image-upload-wrap">
+                                <input type="file" @change="onFileChange" accept="image/*" class="file-upload-input">
+                                <div class="d-flex justify-center align-center flex-column upload">
+                                    <v-icon style="font-size: 5em" color="#fefdff">mdi-plus-circle-outline</v-icon>
+                                    <span>Add store logo</span>
+                                </div>
                             </div>
-                        </div>
-                        <div v-else class="image-uploaded-wrap">
-                            <img :src="image" :alt="business">
-                            <div>
-                                <v-btn @click="removeImage">
-                                    Remove {{imageName}}
-                                </v-btn>
+                            <div v-else class="image-uploaded-wrap">
+                                <img :src="image" :alt="business">
+                                <div>
+                                    <v-btn @click="removeImage">
+                                        Remove {{imageName}}
+                                    </v-btn>
+                                </div>
                             </div>
                         </div>
 
                         <span class="register-label pt-5">Website/Facebook Link</span>
-                    <v-text-field outlined v-model="website" required placeholder="https://www.facebook.com/JuanDelaCruz"></v-text-field>
+                    <v-text-field outlined v-model="website" :rules="rules.textRules" placeholder="https://www.facebook.com/JuanDelaCruz" required></v-text-field>
                 </v-col>
-                <v-col class="d-flex align-end">
+                <v-col class="d-flex align-md-end" cols="12" md="6">
                     <div class="w-100">
                         <span class="register-label">Contact Number</span>
-                        <v-text-field outlined v-model="mobileNumber" required label="Mobile Number" placeholder="0912-345-6789"></v-text-field>
-                        <v-text-field outlined v-model="teleNumber" required label="Telephone Number" placeholder="123-4567"></v-text-field>
+                        <v-text-field outlined v-model="mobileNumber" :rules="rules.textRules" label="Mobile Number" placeholder="0912-345-6789" required></v-text-field>
+                        <v-text-field outlined v-model="teleNumber" :rules="rules.textRules" label="Telephone Number" placeholder="123-4567" required></v-text-field>
                     </div>
                 </v-col>
             </v-row>
@@ -148,7 +149,7 @@
                 <v-row>
                     <v-col col="12" md="6">
                         <span class="register-label">Email</span>
-                        <v-text-field outlined v-model="email" required placeholder="juandelacruz@email.com" :rules="[rules.required, rules.email]"></v-text-field>
+                        <v-text-field outlined v-model="email" required placeholder="juandelacruz@email.com" :rules="[rules.textRules, rules.email]"></v-text-field>
 
                         <span class="register-label">Password</span>
                         <v-text-field 
@@ -156,8 +157,8 @@
                             v-model="password" 
                             required 
                             :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.password]"
-                            label="Normal with hint text"
+                            :rules="[rules.textRules, rules.password]"
+                            label="Password"
                             hint="At least 8 characters"
                             counter
                             :type="show1 ? 'text' : 'password'"
@@ -171,7 +172,7 @@
                             v-model="rePassword" 
                             required 
                             :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
-                            :rules="[rules.required, rules.password, passwordConfirmationRule]"
+                            :rules="[rules.textRules, rules.password, passwordConfirmationRule]"
                             counter
                             label="Re-enter Password"
                             :type="show2 ? 'text' : 'password'"
@@ -179,8 +180,8 @@
                             >
                         </v-text-field>
 
-                        <div class="d-flex justify-end">
-                            <v-btn color="#FF5964" class="btn-submit" :disabled="!valid" medium right>
+                        <div class="d-flex justify-md-end">
+                            <v-btn color="#FF5964" class="btn-submit" :disabled="!valid" medium @click="validate">
                                 <span>Submit</span>
                             </v-btn>
                         </div>
@@ -214,12 +215,12 @@ export default {
             business: '',
             description: '',
             rules: {
-                textRules: v => !!v || 'Field is required.',
-                email: v => {
-                    const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-                    return pattern.test(v) || 'Invalid e-mail.'
-                },
-                password: v => v.length >= 8 || 'Min 8 characters'
+                textRules: [v => !!v || 'Field is required.'],
+                email: [v => {
+                        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+                        return pattern.test(v) || 'Invalid e-mail.'  
+                }],
+                password: [v => v.length >= 8 || 'Min 8 characters']
             },
             days: [
                 'Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'            
@@ -242,6 +243,10 @@ export default {
         }
     },
     methods: {
+        validate() {
+            this.$refs.form.validate()
+            console.log(this.address, this.business, this.description, this.dayRange, this.from, this.to, this.mobileNumber, this.teleNumber, this.website, this.email, this.password, this.rePassword)
+        },
         inc(){
             this.progress++;
         },
@@ -286,7 +291,7 @@ export default {
         passwordConfirmationRule() {
             return () => (this.password === this.rePassword) || 'Password must match'
         }
-    }
+    },
 }
 </script>
 
@@ -294,11 +299,20 @@ export default {
 
 .picture-bg {
     background-image: url('../assets/images/house.png');
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     position: absolute;
     top: -5px;
     right: 0;
+
+    @media screen and (max-width: 960px) {
+        background-image: url('../assets/images/icon-house.png');
+        position: relative;
+        height: 300px;
+        margin: 0 auto;
+        top: unset;
+        right: unset;
+    }
 }
 
 .register-header {
@@ -307,9 +321,20 @@ export default {
     font-size: 3.5em;
     width: 55%;
     line-height: 4.5rem;
+
+    @media screen and (max-width: 960px) {
+        width: 100%;
+        text-align: center;
+        font-size: 1.5em;
+    }
 }
 
 .progress {
+
+    @media screen and (max-width: 960px) {
+        justify-content: center;
+    }
+
     span {
         display: block;
         border-radius: 18px;
@@ -395,6 +420,9 @@ export default {
 
 .btn-submit {
     border-radius: 20px;
+    @media screen and (max-width: 960px) {
+        width: 100%;
+    }
     span {
         color: $main-white;
     }

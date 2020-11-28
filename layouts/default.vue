@@ -55,9 +55,12 @@
       :class="permanent ? 'd-none' : ''"
       class="bg-orange"
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="#FEFDFF" />
       
-      <v-toolbar-title v-text="title" />
+      <v-img :lazy-src="require('../assets/logos/SONEAR-white.png')" :src="require('../assets/logos/SONEAR-white.png')" width="48" height="48" max-width="48" max-height="48"></v-img>
+      <v-toolbar-title class="app-title">
+          {{title}}
+      </v-toolbar-title>
       <v-spacer />
     </v-app-bar>
 
@@ -70,7 +73,7 @@
         app
         class="bg-green"
         >
-            hello
+            
     </v-footer>
   </v-app>
 </template>
@@ -110,6 +113,7 @@ export default {
   },
   mounted() {
       window.addEventListener("resize", this.resize)
+      
   },
   beforeDestroy() {
       window.removeEventListener("resize", this.resize)
@@ -193,6 +197,10 @@ export default {
     height: 100%;
 }
 
+.app-title {
+    color: $main-white;
+    font-family: 'ProximaBold', 'Roboto', sans-serif;
+}
 
 .w-100 {
     width: 100%;
