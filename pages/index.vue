@@ -1,12 +1,11 @@
 <template>
   <v-layout>
-    hello
     <client-only v-if="lat && long">
-      <l-map style="width: 100%;height: 50vh;" :zoom="13" :center="[lat, long]">
+      <l-map style="width: 100%;height: calc(100vh - 36px);" :zoom="13" :center="[lat, long]" class="map">
         <l-tile-layer
           url="http://{s}.tile.osm.org/{z}/{x}/{y}.png"
         ></l-tile-layer>
-        <l-marker :lat-lng="[lat,long]" :draggable="draggable">
+        <l-marker :lat-lng="[lat,long]">
           <l-popup :content="popupContent"></l-popup>
         </l-marker>
       </l-map>
@@ -18,9 +17,8 @@
 export default {
     data() {
         return {
-            lat: null,
-            long: null,
-            draggable: true,
+            lat: 0,
+            long: 0,
             popupContent: 'Sentian HQ'
         }
     },
@@ -30,19 +28,19 @@ export default {
             if (process.client) { 
                 if(navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(pos => {
-                        this.$store.commit('userLocation', pos)
+                        localStorage.setItem('userLatitude', pos.coords.latitude) // save to localStorage
+                        localStorage.setItem('userLongitude', pos.coords.longitude)
                     }, err => {
                         console.error(err)
                     })
                 } else {
                     console.log('Geolocation has not been enabled.')
                 }
+
+                this.lat = localStorage.getItem('userLatitude')
+                this.long = localStorage.getItem('userLongitude')
             }
 
-            if(this.$store.state.userLoc) {
-                this.lat = this.$store.state.userLoc.coords.latitude
-                this.long = this.$store.state.userLoc.coords.longitude
-            }
         },
     },
     created() {

@@ -3,6 +3,21 @@
 // The variables you want to modify
 // $font-size-root: 20px;
 
+@font-face {
+    font-family: "ProximaNova";
+    src: local('ProximaNova'), url('~assets/fonts/ProximaNova-Regular.otf') format('opentype')
+}
+
+@font-face {
+    font-family: "ProximaBold";
+    src: local('ProximaBold'), url('~assets/fonts/Proxima Nova Bold.otf') format('opentype')
+}
+
+@font-face {
+    font-family: "ProximaLight";
+    src: local('ProximaLight'), url('~assets/fonts/Proxima Nova Condensed Light.otf') format('opentype')
+}
+
 // brand colors
 $main-green: #68A691;
 $main-orange: #EC9F05;
@@ -11,3 +26,6 @@ $main-white: #FEFDFF;
 $main-red: #FF5964;
 $main-sky-blue: #35A7FF;
 $main-navy: #17183B;
+$alpha-sky-blue: rgba(53, 167, 255, 0.6);
+$main-gray: #5F5F5F;
+$main-black: #202020;
