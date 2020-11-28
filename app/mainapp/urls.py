@@ -9,6 +9,7 @@ router = DefaultRouter()
 
 router.register( r'businesses', BusinessViewSet)
 router.register( r'days', DayViewSet)
+router.register( r'services', ServiceViewSet )
 
 
 

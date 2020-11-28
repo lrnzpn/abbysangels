@@ -28,35 +28,40 @@ class BusinessSerializer( serializers.ModelSerializer ):
         fields = '__all__'
 
 
-class ServiceSerializer( ExtendedModelSerializer ):
+class ServiceSerializer( serializers.ModelSerializer ):
 
     class Meta:
         model = Service
-        fields = '__all__'
+        fields = [ 'name' ]
 
 
-class BusinessToDaySerializer( serializers.ModelSerializer ):
+class BusinessDaySerializer( serializers.ModelSerializer ):
     days = DaySerializer()
-    business = BusinessSerializer()
 
     class Meta:
         model = BusinessToDay
-        fields = '__all__'
+        fields = [ 'days' ]
         
 
-class BusinessToServiceSerializer( serializers.ModelSerializer ):
-    business = BusinessSerializer()
-    service = ServiceSerializer( many=True )
+class BusinessServiceSerializer( serializers.ModelSerializer ):
+    service = ServiceSerializer()
 
     class Meta:
         model = BusinessToService
-        fields = '__all__'
+        fields = [ 'service' ]
+
+class ServiceBusinessSerializer( serializers.ModelSerializer ):
+    business = BusinessSerializer()
+
+    class Meta:
+        model = BusinessToService
+        fields = [ 'business' ]
 
 
 class BusinessInfoSerializer( ExtendedModelSerializer ):
 
-    business_days = DaySerializer( many=True )
-    linked_services = ServiceSerializer( many=True )
+    business_days = BusinessDaySerializer( many=True )
+    linked_services = BusinessServiceSerializer( many=True )
 
     class Meta:
         model = Business
@@ -65,9 +70,9 @@ class BusinessInfoSerializer( ExtendedModelSerializer ):
 
 
 class ServicesToBusinessesSerializer( ExtendedModelSerializer ):
-    linked_businesses = BusinessSerializer( many=True )
+    linked_business = ServiceBusinessSerializer( many=True )
 
     class Meta:
         model = Service
         fields = '__all__'
-        extra_fields = [ 'linked_businesses' ]
+        extra_fields = [ 'linked_business' ]

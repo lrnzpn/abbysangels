@@ -16,3 +16,8 @@ class BusinessViewSet( viewsets.ModelViewSet ):
 class DayViewSet( viewsets.ModelViewSet ):
     queryset = Day.objects.all()
     serializer_class = DaySerializer
+
+
+class ServiceViewSet( viewsets.ModelViewSet ):
+    queryset = Service.objects.all()
+    serializer_class = ServicesToBusinessesSerializer

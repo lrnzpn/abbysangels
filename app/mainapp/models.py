@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 
 class Day( models.Model ):
-    number = models.IntegerField( null=True )
-    name = models.CharField( max_length=10, null=True )
+    number = models.IntegerField()
+    name = models.CharField( max_length=10 )
 
     def __str__( self ):
         return self.name
@@ -64,7 +64,7 @@ class Business( models.Model ):
 
 
 class Service( models.Model ):
-    name = models.CharField( max_length=127, null=True )
+    name = models.CharField( max_length=127 )
     
     def __str__( self ):
         return self.name
