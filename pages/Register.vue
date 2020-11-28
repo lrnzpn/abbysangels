@@ -106,6 +106,14 @@
               <v-row>
                   <v-col>
                       <span class="register-label">Type of Business/Service</span>
+                      <div class="flex-wrap v-list-item">
+                          <span class="d-block map-filter" 
+                            v-for="(business, i) in services" 
+                            :key="i" 
+                            @click="filters.includes(business) ? filters.splice(filters.indexOf(business), 1) : filters.push(business)"
+                            :class="filters.includes(business) ? 'active-filter' : ''"
+                            >{{business}}</span>
+                      </div>
                   </v-col>
               </v-row>
             </div>
@@ -239,13 +247,47 @@ export default {
             password: '',
             rePassword: '',
             show1: false,
-            show2: false
+            show2: false,
+            services: [
+                'Hospital', 'Pharmacy', 'Grocery', 
+                'Restaurant', 'Supermarket', 'Gas Station',
+                'Payment Gateway', 'Bank', 'Hardware', 'Utility Company',
+                'Electronics'
+            ],
+            filters: [],
+            isSuccess: false
         }
     },
     methods: {
         validate() {
             this.$refs.form.validate()
             console.log(this.address, this.business, this.description, this.dayRange, this.from, this.to, this.mobileNumber, this.teleNumber, this.website, this.email, this.password, this.rePassword)
+            let data = {
+                "business_days": this.dayRange,
+                "linked_services": this.filters,
+                "business_name": this.business,
+                "address": this.address,
+                "latitude": localStorage.getItem('userLatitude'),
+                "longtitude": localStorage.getItem('userLongitude'),
+                "representative_name": "",
+                "mobile_number": this.mobileNumber,
+                "telephone_number": this.teleNumber,
+                "website_link": this.website,
+                "email": this.email,
+                "password": this.password,
+                "description": this.description,
+                "office_hours_start": this.from,
+                "office_hours_end": this.to,
+                "weekly_views": null,
+                "total_views": null
+            }
+
+            this.$store.dispatch('register', data)
+            .then(() => this.isSuccess = true)
+            .catch(err => {
+                console.log(err)
+                alert("Something went wrong, please refresh and try again.");
+            })
         },
         inc(){
             this.progress++;
@@ -292,6 +334,9 @@ export default {
             return () => (this.password === this.rePassword) || 'Password must match'
         }
     },
+    // mounted() {
+    //     console.log(this.dayRange)
+    // }
 }
 </script>
 

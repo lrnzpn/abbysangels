@@ -3,8 +3,8 @@ from django.db import models
 # Create your models here.
 
 class Day( models.Model ):
-    number = models.IntegerField( null=True )
-    name = models.CharField( max_length=10, null=True )
+    number = models.IntegerField()
+    name = models.CharField( max_length=10 )
 
     def __str__( self ):
         return self.name
@@ -23,7 +23,7 @@ class Business( models.Model ):
     latitude = models.FloatField()
     longtitude = models.FloatField()
     
-    representative_name = models.CharField( max_length=255, null=True, blank=True )
+    logo = models.ImageField( upload_to='images/', null=True, blank=True )
     mobile_number = models.CharField( max_length=11, null=True, blank=True )
     telephone_number = models.CharField( max_length=10, null=True, blank=True )
     website_link = models.CharField( max_length=127, null=True, blank=True )
@@ -64,7 +64,7 @@ class Business( models.Model ):
 
 
 class Service( models.Model ):
-    name = models.CharField( max_length=127, null=True )
+    name = models.CharField( max_length=127 )
     
     def __str__( self ):
         return self.name

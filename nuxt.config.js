@@ -97,6 +97,6 @@ export default {
         ]
     },
     env: {
-
+        SONEAR_API: 'http://localhost:8000'
     }
 }

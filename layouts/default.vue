@@ -27,7 +27,12 @@
         </v-list-item>
 
         <v-list-item class="flex-wrap">
-            <span class="d-block map-filter" v-for="i in 10" :key="i">hello</span>
+            <span class="d-block map-filter" 
+                v-for="(business, i) in services" 
+                :key="i" 
+                @click="filters.includes(business) ? filters.splice(filters.indexOf(business), 1) : filters.push(business)"
+                :class="filters.includes(business) ? 'active-filter' : ''"
+                >{{business}}</span>
         </v-list-item>
         
         <v-list-item 
@@ -73,7 +78,7 @@
         app
         class="bg-green"
         >
-            
+        
     </v-footer>
   </v-app>
 </template>
@@ -103,17 +108,22 @@ export default {
         }
       ],
       title: 'SoNear',
-      
+      services: [
+          'Hospital', 'Pharmacy', 'Grocery', 
+          'Restaurant', 'Supermarket', 'Gas Station',
+          'Payment Gateway', 'Bank', 'Hardware', 'Utility Company',
+          'Electronics'
+      ],
+      filters: []
     }
   },
   methods: {
       resize(e) {
           e.target.outerWidth < 960 ? this.permanent = false : this.permanent = true;
-      }
+      },
   },
   mounted() {
       window.addEventListener("resize", this.resize)
-      
   },
   beforeDestroy() {
       window.removeEventListener("resize", this.resize)
@@ -175,6 +185,11 @@ export default {
     text-align: center;
     margin: 5px;
     &:hover {
+        background-color: $main-sky-blue;
+        color: $main-white;
+    }
+
+    &.active-filter {
         background-color: $main-sky-blue;
         color: $main-white;
     }
