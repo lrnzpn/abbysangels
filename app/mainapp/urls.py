@@ -8,6 +8,8 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 
 router.register( r'businesses', BusinessViewSet)
+router.register( r'days', DayViewSet)
+
 
 
 urlpatterns = [

@@ -10,4 +10,9 @@ from rest_framework import viewsets
 
 class BusinessViewSet( viewsets.ModelViewSet ):
     queryset = Business.objects.all()
-    serializer_class = BusinessSerializer
+    serializer_class = BusinessInfoSerializer
+
+
+class DayViewSet( viewsets.ModelViewSet ):
+    queryset = Day.objects.all()
+    serializer_class = DaySerializer
