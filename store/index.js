@@ -2,7 +2,7 @@ export const state = () => ({
     userLoc: null,
     status: '',
     user: {},
-    token: localStorage.getItem('token') || ''
+    // token: localStorage.getItem('token') || ''
   })
   
 export const mutations = {

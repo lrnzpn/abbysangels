@@ -6,11 +6,11 @@
       app
       floating
       :permanent="permanent"
-      width="400"
+      width="350"
       color="off-white"
     >
       <v-list>
-        <v-list-item router to="/" class="brand">
+        <v-list-item router to="/" class="brand pb-5">
             <v-img :lazy-src="require('../assets/logos/SONEAR-logo.png')" :src="require('../assets/logos/SONEAR-logo.png')" width="95" height="85" max-width="95" max-height="85"></v-img>
             <v-list-item-content class="ml-3">
                 <v-list-item-title class="brand-name">{{title}}</v-list-item-title>
@@ -26,7 +26,7 @@
             </v-list-item-content>
         </v-list-item>
 
-        <v-list-item class="flex-wrap">
+        <v-list-item class="flex-wrap pb-5">
             <span class="d-block map-filter" 
                 v-for="(business, i) in services" 
                 :key="i" 
@@ -41,7 +41,7 @@
             :to="item.to"
             router
             exact
-            class="nav-links"
+            class="nav-links py-5"
             style="color:#68a691 !important"
         >
             <v-list-item-action>

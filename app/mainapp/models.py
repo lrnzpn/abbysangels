@@ -1,5 +1,9 @@
 from django.db import models
 
+from .functions import *
+
+import base64
+
 # Create your models here.
 
 class Day( models.Model ):
@@ -23,7 +27,8 @@ class Business( models.Model ):
     latitude = models.FloatField()
     longtitude = models.FloatField()
     
-    logo = models.ImageField( upload_to='images/', null=True, blank=True )
+    logo = models.FileField( upload_to='images/', null=True, blank=True )
+    logo_uri = models.TextField( null=True, blank=True )
     mobile_number = models.CharField( max_length=11, null=True, blank=True )
     telephone_number = models.CharField( max_length=10, null=True, blank=True )
     website_link = models.CharField( max_length=127, null=True, blank=True )
@@ -58,6 +63,17 @@ class Business( models.Model ):
         
         super( Business, self ).save( *args, **kwargs )
 
+    def save( self, *args, **kwargs ):
+        try:
+            path = self.logo.path
+            self.logo_uri = base64.b64encode( open( path, "rb" ).read() ).decode()
+
+        except FileNotFoundError:
+            print('File not found!')
+        
+        print( path )
+        print( self.logo_uri )
+        super( Business, self ).save( *args, **kwargs )
 
     class Meta:
         ordering = [ 'business_name' ]

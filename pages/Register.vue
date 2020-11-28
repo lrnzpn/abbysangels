@@ -261,7 +261,8 @@ export default {
     methods: {
         validate() {
             this.$refs.form.validate()
-            console.log(this.address, this.business, this.description, this.dayRange, this.from, this.to, this.mobileNumber, this.teleNumber, this.website, this.email, this.password, this.rePassword)
+            // console.log(this.address, this.business, this.description, this.dayRange, this.from, this.to, this.mobileNumber, this.teleNumber, this.website, this.email, this.password, this.rePassword)
+            console.log(this.image)
             let data = {
                 "business_days": this.dayRange,
                 "linked_services": this.filters,
@@ -279,15 +280,18 @@ export default {
                 "office_hours_start": this.from,
                 "office_hours_end": this.to,
                 "weekly_views": null,
-                "total_views": null
+                "total_views": null,
+
             }
 
-            this.$store.dispatch('register', data)
-            .then(() => this.isSuccess = true)
-            .catch(err => {
-                console.log(err)
-                alert("Something went wrong, please refresh and try again.");
-            })
+            console.log(data)
+
+            // this.$store.dispatch('register', data)
+            // .then(() => this.isSuccess = true)
+            // .catch(err => {
+            //     console.log(err)
+            //     alert("Something went wrong, please refresh and try again.");
+            // })
         },
         inc(){
             this.progress++;
