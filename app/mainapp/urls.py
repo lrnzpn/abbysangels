@@ -14,4 +14,5 @@ router.register( r'services-to-businesses', ServiceToBusinessesViewSet )
 
 urlpatterns = [
     path( '', include(router.urls) ),
+    path( 'login/', LoginAPI.as_view(), name='login' ),
 ]
