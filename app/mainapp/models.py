@@ -23,7 +23,7 @@ class Business( models.Model ):
     latitude = models.FloatField()
     longtitude = models.FloatField()
     
-    representative_name = models.CharField( max_length=255, null=True, blank=True )
+    logo = models.ImageField( upload_to='images/', null=True, blank=True )
     mobile_number = models.CharField( max_length=11, null=True, blank=True )
     telephone_number = models.CharField( max_length=10, null=True, blank=True )
     website_link = models.CharField( max_length=127, null=True, blank=True )

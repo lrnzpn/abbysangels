@@ -2,3 +2,4 @@ django
 djangorestframework
 googlemaps
 django-collectionfield
+pillow
