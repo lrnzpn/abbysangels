@@ -1,89 +1,79 @@
 <template>
-  <v-app dark>
+  <v-app>
     <v-navigation-drawer
       v-model="drawer"
-      :mini-variant="miniVariant"
-      :clipped="clipped"
       fixed
       app
+      floating
+      :permanent="permanent"
+      width="400"
+      color="off-white"
     >
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
+        <v-list-item router to="/" class="brand">
+            <v-img :lazy-src="require('../assets/logos/SONEAR-logo.png')" :src="require('../assets/logos/SONEAR-logo.png')" width="95" height="85" max-width="95" max-height="85"></v-img>
+            <v-list-item-content class="ml-3">
+                <v-list-item-title class="brand-name">{{title}}</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item class="nav-links" style="color:#68a691 !important">
+            <v-list-item-action>
+                <v-icon class="nav-icon">mdi-map-marker-outline</v-icon>
+            </v-list-item-action>
+             <v-list-item-content>
+                <v-list-item-title class="nav-title">Map Filter</v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item class="flex-wrap">
+            <span class="d-block map-filter" v-for="i in 10" :key="i">hello</span>
+        </v-list-item>
+        
+        <v-list-item 
+            v-for="(item, i) in items"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+            class="nav-links"
+            style="color:#68a691 !important"
         >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
+            <v-list-item-action>
+                <v-icon class="nav-icon">{{ item.icon }}</v-icon>
+            </v-list-item-action>
+             <v-list-item-content>
+                <v-list-item-title class="nav-title" v-text="item.title" />
+            </v-list-item-content>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
+
     <v-app-bar
-      :clipped-left="clipped"
       fixed
       app
+      :class="permanent ? 'd-none' : ''"
+      class="bg-orange"
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
-      <v-toolbar-title v-text="title" />
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer" color="#FEFDFF" />
+      
+      <v-img :lazy-src="require('../assets/logos/SONEAR-white.png')" :src="require('../assets/logos/SONEAR-white.png')" width="48" height="48" max-width="48" max-height="48"></v-img>
+      <v-toolbar-title class="app-title">
+          {{title}}
+      </v-toolbar-title>
       <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
-    <v-content>
-      <v-container>
+
+    <v-main :style="permanent ? 'paddingTop: 0px' : null">
         <nuxt />
-      </v-container>
-    </v-content>
-    <v-navigation-drawer
-      v-model="rightDrawer"
-      :right="right"
-      temporary
-      fixed
-    >
-      <v-list>
-        <v-list-item @click.native="right = !right">
-          <v-list-item-action>
-            <v-icon light>
-              mdi-repeat
-            </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    </v-main>
+
     <v-footer
-      :fixed="fixed"
-      app
-    >
-      <span>&copy; {{ new Date().getFullYear() }}</span>
+        :fixed="fixed"
+        app
+        class="bg-green"
+        >
+            
     </v-footer>
   </v-app>
 </template>
@@ -92,26 +82,127 @@
 export default {
   data () {
     return {
-      clipped: false,
-      drawer: false,
+      drawer: true,
       fixed: false,
+      permanent: true,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          icon: 'mdi-pencil-outline',
+          title: 'Register your business',
+          to: '/register'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
+            icon: 'mdi-login',
+            title: 'Log In',
+            to: '/login'
+        },
+        {
+            icon: 'mdi-account-box',
+            title: 'View your profile',
+            to: '/profile'
         }
       ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+      title: 'SoNear',
+      
     }
+  },
+  methods: {
+      resize(e) {
+          e.target.outerWidth < 960 ? this.permanent = false : this.permanent = true;
+      }
+  },
+  mounted() {
+      window.addEventListener("resize", this.resize)
+      
+  },
+  beforeDestroy() {
+      window.removeEventListener("resize", this.resize)
   }
 }
 </script>
+
+<style lang="scss">
+
+.brand {
+    &.v-list-item--active::before {
+        opacity: 0 !important;
+    }
+}
+
+.off-white {
+    background: $main-white;
+    box-shadow: 5px -1px 20px -6px rgba(0, 0, 0, 0.2);
+    z-index: 999 !important;
+}
+
+.brand-name {
+    font-family: 'ProximaBold', 'Roboto', sans-serif;
+    font-size: 3.75em !important;
+    color: $main-orange;
+}
+
+.nav-links {
+    font-family: 'ProximaBold', 'Roboto', sans-serif;
+
+    .nav-icon {
+        color: $main-green !important;
+    }
+
+    .nav-title {
+        font-size: 1.25em;
+    }
+
+    &.v-list-item--active {
+        &:before {
+            background-color: $main-green;
+            opacity: 1 !important;
+        }
+
+        .nav-icon,.nav-title {
+            color: $main-white !important;
+            z-index: 9;
+        }
+    }
+}
+
+.map-filter {
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 0.8px solid $main-sky-blue;
+    color: $main-sky-blue;
+    background-color: $main-white;
+    cursor: pointer;
+    text-align: center;
+    margin: 5px;
+    &:hover {
+        background-color: $main-sky-blue;
+        color: $main-white;
+    }
+}
+
+.bg-green {
+    background: $main-green !important;
+    z-index: 999 !important;
+}
+
+.bg-orange {
+    background: $main-orange !important;
+}
+
+.static {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+}
+
+.app-title {
+    color: $main-white;
+    font-family: 'ProximaBold', 'Roboto', sans-serif;
+}
+
+.w-100 {
+    width: 100%;
+}
+</style>

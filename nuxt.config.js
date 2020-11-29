@@ -1,7 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'universal',
   /*
   ** Headers of the page
   */
@@ -14,7 +13,11 @@ export default {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap'
+      }
     ]
   },
   /*
@@ -25,6 +28,7 @@ export default {
   ** Global CSS
   */
   css: [
+    'leaflet/dist/leaflet.css'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -36,6 +40,7 @@ export default {
   */
   buildModules: [
     '@nuxtjs/vuetify',
+    '@nuxtjs/style-resources',
   ],
   /*
   ** Nuxt.js modules
@@ -46,6 +51,7 @@ export default {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv',
+    'nuxt-leaflet',
   ],
   /*
   ** Axios module configuration
@@ -59,10 +65,11 @@ export default {
   */
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
+    treeShake: true,
     theme: {
-      dark: true,
+      dark: false,
       themes: {
-        dark: {
+        light: {
           primary: colors.blue.darken2,
           accent: colors.grey.darken3,
           secondary: colors.amber.darken3,
@@ -83,5 +90,13 @@ export default {
     */
     extend (config, ctx) {
     }
-  }
+  },
+  styleResources: {
+        scss: [
+            '~/assets/*.scss'
+        ]
+    },
+    env: {
+
+    }
 }
