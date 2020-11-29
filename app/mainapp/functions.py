@@ -17,8 +17,12 @@ def img_to_data( path ):
         return u'data:%s;base64,%s' % (mime, data64)
 
 
-def add_business( business_data, start_day, end_day, services ):
+def add_business( business_data ):
     business_to_check = Business.objects.filter( business_name=business_data[ 'business_name' ] )
+
+    start_day = business_data[ 'business_days' ][0]
+    end_day = business_data[ 'business_days' ][1]
+    services = business_data[ 'linked_services' ]
 
     if business_to_check.exists():
         print( "Business name already taken. Please input a new one." )
@@ -40,17 +44,18 @@ def add_business( business_data, start_day, end_day, services ):
         office_hours_end = business_data['office_hours_end']
         )
 
-    for i in range( start_day, end_day + 1 ):
-        day = Day.objects.get( number=i )
-
-        BusinessToDay.objects.create(
-            days=day,
+    BusinessToDay.objects.create(
+            days=Day.objects.get( number=start_day),
             business=business_to_process
         )
-    
+    BusinessToDay.objects.create(
+            days=Day.objects.get( number=end_day ),
+            business=business_to_process
+        )
+
     for i in services:
         print(i)
-        service = Service.objects.get( name=i['service']['name'] )
+        service = Service.objects.get( name=i )
 
         BusinessToService.objects.create(
             business=business_to_process,
