@@ -61,20 +61,20 @@ class Business( models.Model ):
         
         super( Business, self ).save( *args, **kwargs )
 
-    def save( self, *args, **kwargs ):
-        try:
-            path = self.logo.path
-            self.logo_uri = base64.b64encode( open( path, "rb" ).read() ).decode()
+    # def save( self, *args, **kwargs ):
+    #     try:
+    #         path = self.logo.path
+    #         self.logo_uri = base64.b64encode( open( path, "rb" ).read() ).decode()
 
-        except FileNotFoundError:
-            print('File not found!')
+    #     except FileNotFoundError:
+    #         print('File not found!')
         
-        print( path )
-        print( self.logo_uri )
-        super( Business, self ).save( *args, **kwargs )
+    #     print( path )
+    #     print( self.logo_uri )
+    #     super( Business, self ).save( *args, **kwargs )
 
-    class Meta:
-        ordering = [ 'business_name' ]
+    # class Meta:
+    #     ordering = [ 'business_name' ]
 
 
 class Service( models.Model ):

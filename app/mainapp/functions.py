@@ -18,6 +18,12 @@ def img_to_data( path ):
 
 
 def add_business( business_data, start_day, end_day, services ):
+    business_to_check = Business.objects.filter( business_name=business_data[ 'business_name' ] )
+
+    if business_to_check.exists():
+        print( "Business name already taken. Please input a new one." )
+        return False
+
     business_to_process = Business.objects.create( 
         business_name = business_data['business_name'],
         address = business_data['address'],
@@ -43,7 +49,8 @@ def add_business( business_data, start_day, end_day, services ):
         )
     
     for i in services:
-        service = Service.objects.get( name=i )
+        print(i)
+        service = Service.objects.get( name=i['service']['name'] )
 
         BusinessToService.objects.create(
             business=business_to_process,

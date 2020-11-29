@@ -21,11 +21,11 @@ class BusinessViewSet ( viewsets.ModelViewSet ):
         serializer.is_valid( raise_exception=True )
 
         business_name = serializer.validated_data[ 'business_name' ]
-        start_day = serializer.validated_data[ 'business_days' ][0]
-        end_day = serializer.validated_data[ 'business_days' ][1]
+        start_day = serializer.validated_data[ 'business_days' ][0]['days']['number']
+        end_day = serializer.validated_data[ 'business_days' ][1]['days']['number']
         service = serializer.validated_data[ 'linked_services' ]
 
-        add_business( serializer, start_day, end_day, service )
+        add_business( serializer.data, start_day, end_day, service )
 
         return Response( serializer.data )
 
