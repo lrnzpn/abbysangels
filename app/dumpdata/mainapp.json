@@ -170,8 +170,7 @@
         "pk":6,
         "fields":{
             "business_name":"711 Visayas Ave.",
-            "address":"42 Visayas Ave, Diliman, Quezon 
-City, 1128 Metro Manila",
+            "address":"42 Visayas Ave, Diliman, Quezon City, 1128 Metro Manila",
             "latitude":14.66066,
             "longitude":121.04474,
             "logo":"images/Signature.png",
@@ -259,8 +258,7 @@ City, 1128 Metro Manila",
         "pk":10,
         "fields":{
             "business_name":"Ice Cream Store",
-            "address":"38-G Visayas Ave, Diliman, Quezon City, 1128 Metro 
-Manila",
+            "address":"38-G Visayas Ave, Diliman, Quezon City, 1128 Metro Manila",
             "latitude":14.66024,
             "longitude":121.04482,
             "logo":"",
