@@ -3,3 +3,4 @@ djangorestframework
 googlemaps
 django-collectionfield
 pillow
+django-cors-headers
