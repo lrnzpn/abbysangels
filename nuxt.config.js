@@ -98,5 +98,8 @@ export default {
     },
     env: {
         SONEAR_API: 'http://localhost:8000'
+    },
+    axios: {
+        proxyHeaders: false
     }
 }

@@ -7,18 +7,26 @@
         ></l-tile-layer>
         <l-marker :lat-lng="[lat,long]" @click="dialog = true">
             <l-icon>
-                <v-icon large color="#202020">mdi-facebook</v-icon>
+                <v-icon large color="#202020">mdi-home</v-icon>
+            </l-icon>
+        </l-marker>
+        <l-marker v-for="(d,i) in data" :key="i" :lat-lng="[d.fields.latitude, d.fields.longitude]">
+            <l-icon>
+                <v-icon large color="#202020">{{businesses[i].icon}}</v-icon>
             </l-icon>
         </l-marker>
       </l-map>
     </client-only>
+
+
     <v-dialog
       v-model="dialog"
       max-width="290"
         :fullscreen="mobDialog"
         :hide-overlay="mobDialog"
         :transition="mobDialog && 'dialog-bottom-transition'"
-        class="dialog-modal"
+        content-class="override-modal"
+        style="color:red;"
     >
       <v-card>
         <v-card-title class="headline">
@@ -50,18 +58,78 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </v-layout>
 </template>
 
 <script>
+import data from '../app/mainapp/fixtures/data.json'
+
 export default {
     data() {
         return {
             lat: 0,
             long: 0,
             dialog: false,
-            mobDialog: false
+            mobDialog: false,
+            // businesses: null,
+            data: data,
+            businesses: [
+                {service:'Hospital', icon:'mdi-hospital-box'},
+                {service:'Pharmacy', icon:'mdi-pill' },
+                {service:'Grocery', icon:'mdi-basket' },
+                {service:'Restaurant', icon:'mdi-silverware-fork-knife'},
+                {service:'Supermarket', icon:'mdi-cart' },
+                {service:'Gas Station', icon:'mdi-gas-station' },
+                {service:'Payment Gateway', icon:'mdi-contactless-payment-circle'},
+                {service:'Bank', icon: 'mdi-bank'},
+                {service:'Hardware', icon: 'mdi-hammer-wrench' },
+                {service:'Utility Company', icon: 'mdi-toolbox' },
+                {service:'Electronics', icon: 'mdi-flash' },
+                {service:'Hospital', icon:'mdi-hospital-box'},
+                {service:'Pharmacy', icon:'mdi-pill' },
+                {service:'Grocery', icon:'mdi-basket' },
+                {service:'Restaurant', icon:'mdi-silverware-fork-knife'},
+                {service:'Supermarket', icon:'mdi-cart' },
+                {service:'Gas Station', icon:'mdi-gas-station' },
+                {service:'Payment Gateway', icon:'mdi-contactless-payment-circle'},
+                {service:'Bank', icon: 'mdi-bank'},
+                {service:'Hardware', icon: 'mdi-hammer-wrench' },
+                {service:'Utility Company', icon: 'mdi-toolbox' },
+                {service:'Electronics', icon: 'mdi-flash' },
+                {service:'Hospital', icon:'mdi-hospital-box'},
+                {service:'Pharmacy', icon:'mdi-pill' },
+                {service:'Grocery', icon:'mdi-basket' },
+                {service:'Restaurant', icon:'mdi-silverware-fork-knife'},
+                {service:'Supermarket', icon:'mdi-cart' },
+                {service:'Gas Station', icon:'mdi-gas-station' },
+                {service:'Payment Gateway', icon:'mdi-contactless-payment-circle'},
+                {service:'Bank', icon: 'mdi-bank'},
+                {service:'Hardware', icon: 'mdi-hammer-wrench' },
+                {service:'Utility Company', icon: 'mdi-toolbox' },
+                {service:'Electronics', icon: 'mdi-flash' },
+                {service:'Hospital', icon:'mdi-hospital-box'},
+                {service:'Pharmacy', icon:'mdi-pill' },
+                {service:'Grocery', icon:'mdi-basket' },
+                {service:'Restaurant', icon:'mdi-silverware-fork-knife'},
+                {service:'Supermarket', icon:'mdi-cart' },
+                {service:'Gas Station', icon:'mdi-gas-station' },
+                {service:'Payment Gateway', icon:'mdi-contactless-payment-circle'},
+                {service:'Bank', icon: 'mdi-bank'},
+                {service:'Hardware', icon: 'mdi-hammer-wrench' },
+                {service:'Utility Company', icon: 'mdi-toolbox' },
+                {service:'Electronics', icon: 'mdi-flash' },
+                {service:'Hospital', icon:'mdi-hospital-box'},
+                {service:'Pharmacy', icon:'mdi-pill' },
+                {service:'Grocery', icon:'mdi-basket' },
+                {service:'Restaurant', icon:'mdi-silverware-fork-knife'},
+                {service:'Supermarket', icon:'mdi-cart' },
+                {service:'Gas Station', icon:'mdi-gas-station' },
+                {service:'Payment Gateway', icon:'mdi-contactless-payment-circle'},
+                {service:'Bank', icon: 'mdi-bank'},
+                {service:'Hardware', icon: 'mdi-hammer-wrench' },
+                {service:'Utility Company', icon: 'mdi-toolbox' },
+                {service:'Electronics', icon: 'mdi-flash' },
+            ],
         }
     },
     methods: {
@@ -84,6 +152,7 @@ export default {
             }
 
         },
+        
         test() {
             console.log('yay')
         },
@@ -98,6 +167,9 @@ export default {
         filters() {
             return this.$store.state.filters
         },
+        randomIcon() {
+            return this.businesses[Math.floor(Math.random() * this.businesses.length)]
+        }
     },
     created() {
         this.geolocate()
@@ -105,6 +177,7 @@ export default {
     mounted() {
       window.addEventListener("resize", this.resize)
       window.innerWidth < 960 ? this.mobDialog = true : this.mobDialog = false;
+      console.log(this.businesses[1].icon)
     },
     beforeDestroy() {
         window.removeEventListener("resize", this.resize)
@@ -113,5 +186,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.override-modal {
+    
+    @media screen and (max-width: 960px) {
+        height: 60% !important;
+        top: auto !important;
+        bottom: 0 !important;
+    }
+}
+
 
 </style>
