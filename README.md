@@ -2,6 +2,31 @@
 
 > My remarkable Nuxt.js project
 
+## Specifications
+> Python 3.6+ 
+> NPM 6.14+
+> Node 12.18+
+
+## Backend Setup
+```bash
+
+# Creating a virtual environment
+$ python -m venv myenv
+
+# Navgiate to project/app and install dependencies
+$ pip install -r requirements.txt
+
+# Migrate data
+$ python manage.py makemirations
+$ python manage.py migrate
+
+# Loading dump data
+$ python manage.py loaddata mainapp.json
+
+# Run the program
+$ python manage.py runserver
+```
+
 ## Build Setup
 
 ```bash
