@@ -262,15 +262,16 @@ export default {
         validate() {
             this.$refs.form.validate()
             // console.log(this.address, this.business, this.description, this.dayRange, this.from, this.to, this.mobileNumber, this.teleNumber, this.website, this.email, this.password, this.rePassword)
-            console.log(this.image)
+            // console.log(this.image)
             let data = {
                 "business_days": this.dayRange,
                 "linked_services": this.filters,
                 "business_name": this.business,
                 "address": this.address,
-                "latitude": localStorage.getItem('userLatitude'),
-                "longtitude": localStorage.getItem('userLongitude'),
-                "representative_name": "",
+                "latitude": parseFloat(localStorage.getItem('userLatitude')),
+                "longitude": parseFloat(localStorage.getItem('userLongitude')),
+                "logo": null,
+                "logo_uri": this.image,
                 "mobile_number": this.mobileNumber,
                 "telephone_number": this.teleNumber,
                 "website_link": this.website,
@@ -279,19 +280,19 @@ export default {
                 "description": this.description,
                 "office_hours_start": this.from,
                 "office_hours_end": this.to,
-                "weekly_views": null,
-                "total_views": null,
+                "weekly_views": 0,
+                "total_views": 0,
 
             }
 
             console.log(data)
 
-            // this.$store.dispatch('register', data)
-            // .then(() => this.isSuccess = true)
-            // .catch(err => {
-            //     console.log(err)
-            //     alert("Something went wrong, please refresh and try again.");
-            // })
+            this.$store.dispatch('register', data)
+            .then(() => this.isSuccess = true)
+            .catch(err => {
+                console.log(err)
+                alert("Something went wrong, please refresh and try again.");
+            })
         },
         inc(){
             this.progress++;

@@ -30,25 +30,59 @@
             <span class="d-block map-filter" 
                 v-for="(business, i) in services" 
                 :key="i" 
-                @click="filters.includes(business) ? filters.splice(filters.indexOf(business), 1) : filters.push(business)"
-                :class="filters.includes(business) ? 'active-filter' : ''"
-                >{{business}}</span>
+                @click="filter(business.service)"
+                :class="checkFilter(business.service) ? 'active-filter' : ''"
+                >{{business.service}}</span>
         </v-list-item>
         
         <v-list-item 
-            v-for="(item, i) in items"
-            :key="i"
-            :to="item.to"
             router
             exact
             class="nav-links py-5"
             style="color:#68a691 !important"
+            to='/register'
         >
             <v-list-item-action>
-                <v-icon class="nav-icon">{{ item.icon }}</v-icon>
+                <v-icon class="nav-icon">mdi-pencil-outline</v-icon>
             </v-list-item-action>
              <v-list-item-content>
-                <v-list-item-title class="nav-title" v-text="item.title" />
+                <v-list-item-title class="nav-title">
+                    Register your business
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item 
+            router
+            exact
+            class="nav-links py-5"
+            style="color:#68a691 !important"
+            to='/login'
+        >
+            <v-list-item-action>
+                <v-icon class="nav-icon">mdi-login</v-icon>
+            </v-list-item-action>
+             <v-list-item-content>
+                <v-list-item-title class="nav-title">
+                    Log In
+                </v-list-item-title>
+            </v-list-item-content>
+        </v-list-item>
+
+        <v-list-item 
+            router
+            exact
+            class="nav-links py-5"
+            style="color:#68a691 !important"
+            to='/profile'
+        >
+            <v-list-item-action>
+                <v-icon class="nav-icon">mdi-account-box</v-icon>
+            </v-list-item-action>
+             <v-list-item-content>
+                <v-list-item-title class="nav-title">
+                    View your profile
+                </v-list-item-title>
             </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -90,40 +124,32 @@ export default {
       drawer: true,
       fixed: false,
       permanent: true,
-      items: [
-        {
-          icon: 'mdi-pencil-outline',
-          title: 'Register your business',
-          to: '/register'
-        },
-        {
-            icon: 'mdi-login',
-            title: 'Log In',
-            to: '/login'
-        },
-        {
-            icon: 'mdi-account-box',
-            title: 'View your profile',
-            to: '/profile'
-        }
-      ],
       title: 'SoNear',
-      services: [
-          'Hospital', 'Pharmacy', 'Grocery', 
-          'Restaurant', 'Supermarket', 'Gas Station',
-          'Payment Gateway', 'Bank', 'Hardware', 'Utility Company',
-          'Electronics'
-      ],
-      filters: []
     }
   },
   methods: {
       resize(e) {
           e.target.outerWidth < 960 ? this.permanent = false : this.permanent = true;
       },
+      filter(val) {
+          this.$store.commit('filter', val)
+          
+      },
+      checkFilter(val) {
+          return this.filters.includes(val)
+      }
+  },
+  computed: {
+      services() {
+          return this.$store.state.services;
+      },
+      filters() {
+          return this.$store.state.filters
+      },
   },
   mounted() {
       window.addEventListener("resize", this.resize)
+      window.innerWidth < 960 ? this.permanent = false : this.permanent = true;
   },
   beforeDestroy() {
       window.removeEventListener("resize", this.resize)

@@ -5,15 +5,22 @@ from .models import *
 from .functions import *
 from .serializers import *
 
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
 # Create your views here.
 
-class BusinessViewSet( viewsets.ModelViewSet ):
+class BusinessViewSet ( viewsets.ModelViewSet ):
     queryset = Business.objects.all()
     serializer_class = BusinessInfoSerializer
+
+    def create( self, request, *args, **kwargs ):
+
+        add_business( request.data )
+
+        return Response( request.data )
 
 
 class DayViewSet( viewsets.ModelViewSet ):
