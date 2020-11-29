@@ -78,7 +78,7 @@ class Business( models.Model ):
 
 
 class Service( models.Model ):
-    name = models.CharField( max_length=127 )
+    name = models.CharField( max_length=127, null=True )
     
     def __str__( self ):
         return self.name
