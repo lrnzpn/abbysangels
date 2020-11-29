@@ -13,6 +13,9 @@
 # Creating a virtual environment
 $ python -m venv myenv
 
+# Activate the virtual environment
+$ .\myenv\Scripts\activate
+
 # Navgiate to project/app and install dependencies
 $ pip install -r requirements.txt
 
