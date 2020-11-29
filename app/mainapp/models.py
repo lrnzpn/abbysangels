@@ -25,7 +25,7 @@ class Business( models.Model ):
     business_name = models.CharField( max_length=255 )
     address = models.TextField()
     latitude = models.FloatField()
-    longtitude = models.FloatField()
+    longitude = models.FloatField()
     
     logo = models.FileField( upload_to='images/', null=True, blank=True )
     logo_uri = models.TextField( null=True, blank=True )
